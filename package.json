@@ -1,0 +1,29 @@
+{
+  "name": "vocabulary-app",
+  "version": "1.0.0",
+  "description": "Small application to handle the addition of new vocabulary to a database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+   "watch": "webpack --watch",
+    "build": "webpack",
+    "start": "webpack serve --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^6.8.1",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "eslint": "^8.42.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.87.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}

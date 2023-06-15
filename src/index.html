@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Helper</title>
+</head>
+<body>
+    <h1>Vocabulary Helper</h1>
+    <div class="form-container">
+        <h3>Add vocabulary entry</h3>
+        <form action="" method="post" id="vocabulary-form">
+            <select id="category" name="category" required>
+                <option value="noun">Noun</option>
+                <option value="verb">Verb</option>
+                <option value="adjective">Adjective</option>
+                <option value="adverb">Adverb/Other</option>
+                <option value="numcounter">Number/Counter</option>
+              </select>
+            <input type="text" id="lesson" name="lesson" placeholder="L00" required>
+            <input type="text" id="korean" name="korean" placeholder="Korean" required>
+            <input type="text" id="english" name="english" placeholder="English" required>
+            <input type="text" id="note" name="note" placeholder="Note">
+            <input type="submit" name="submit" id="voc-entry-submit" value="Submit">
+          </form>
+    </div>
+</body>
+</html>
