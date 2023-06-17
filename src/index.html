@@ -4,25 +4,86 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vocabulary Helper</title>
+    <title>VocabuLearny - Vocabulary Helper</title>
 </head>
 <body>
-    <h1>Vocabulary Helper</h1>
+    <div id="header">
+        <h1>VocabuLearny</h1>
+    </div>
+
     <div class="form-container">
-        <h3>Add vocabulary entry</h3>
-        <form action="" method="post" id="vocabulary-form">
-            <select id="category" name="category" required>
-                <option value="noun">Noun</option>
-                <option value="verb">Verb</option>
-                <option value="adjective">Adjective</option>
-                <option value="adverb">Adverb/Other</option>
-                <option value="numcounter">Number/Counter</option>
-              </select>
-            <input type="text" id="lesson" name="lesson" placeholder="L00" required>
-            <input type="text" id="korean" name="korean" placeholder="Korean" required>
+        <h2>Add vocabulary entry</h2>
+        <form action="" method="post" id="vocabulary-form" novalidate>
+            <div class="voc-entry-header">
+                <select id="category" name="category" required>
+                    <option value="Noun">Noun</option>
+                    <option value="Verb">Verb</option>
+                    <option value="Adjective">Adjective</option>
+                    <option value="Adverb/Other">Adverb/Other</option>
+                    <option value="Number/Counter">Number/Counter</option>
+                  </select>
+                <input type="text" id="lesson" name="lesson" placeholder="L00" required>
+            </div>
+            <input type="text" id="korean" name="korean" placeholder="한국어" required>
             <input type="text" id="english" name="english" placeholder="English" required>
             <input type="text" id="note" name="note" placeholder="Note">
             <input type="submit" name="submit" id="voc-entry-submit" value="Submit">
+          </form>
+    </div>
+
+    <div class="display-container">
+        <h2>Entries to be added</h2>
+        <div class="table-container">
+          <table id="vocabulary-table">
+            <!-- <caption>
+              Vocabulary
+            </caption> -->
+            <colgroup>
+              <col />
+              <col />
+              <col />
+              <col />
+              <col />
+              <col />
+            </colgroup>
+            <tr class="table-header">
+              <th scope="col">Korean</th>
+              <th scope="col">English</th>
+              <th scope="col">Note</th>
+              <th scope="col">Category</th>
+              <th scope="col">Lesson</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col" style="visibility:hidden">ID</th>
+            </tr>
+          </table>
+        </div>
+    </div>
+
+    <div id="footer">
+        <img src=<%=require("./assets/5ds-c.png")%> alt="bottom-logo" style="height: 130px;">
+    </div>
+
+        <div class="edit-container hidden">
+        <h3>Edit entry</h3>
+        <form action="" method="post" id="voc-edit-form" novalidate>
+            <div class="voc-entry-header">
+                <select id="edit-category" name="category" required>
+                    <option value="Noun">Noun</option>
+                    <option value="Verb">Verb</option>
+                    <option value="Adjective">Adjective</option>
+                    <option value="Adverb/Other">Adverb/Other</option>
+                    <option value="Number/Counter">Number/Counter</option>
+                  </select>
+                <input type="text" id="edit-lesson" name="edit-lesson" placeholder="L00" required>
+            </div>
+            <input type="text" id="edit-korean" name="edit-korean" placeholder="Korean" required>
+            <input type="text" id="edit-english" name="edit-english" placeholder="English" required>
+            <input type="text" id="edit-note" name="edit-note" placeholder="Note">
+            <div id="voc-edit-footer">
+                <input type="button" name="cancel" id="voc-edit-cancel" value="Cancel edit">
+                <input type="button" name="submit" id="voc-edit-submit" value="Confirm edit">
+            </div>
           </form>
     </div>
 </body>

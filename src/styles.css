@@ -1,4 +1,178 @@
+@font-face {
+  font-family: "Yusei";
+  src: url("./assets/YuseiMagic-Regular.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
 * {
-    color: white;
-    background-color: black;
+  --highlight-color: #dbb2ff;
+  --accent-color: #332940;
+  --bg-color: #121212;
+  /* font-family: "Yusei"; */
+}
+
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+
+#lesson, #edit-lesson {
+  width: 30px;
+}
+
+body {
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-color);
+  color: var(--highlight-color);
+  height: 100vh;
+  width: 100vw;
+  justify-content: space-between;
+}
+
+#header,
+#footer {
+  background-color: var(--accent-color);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#vocabulary-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.voc-entry-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#vocabulary-table {
+  text-align: left;
+  width: max(400px, 50vw);
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+}
+
+#vocabulary-table .table-header {
+  background-color: var(--accent-color);
+  font-size: 16px;
+}
+
+#vocabulary-table td,
+#vocabulary-table th {
+  padding: 10px 10px;
+}
+
+#vocabulary-table td {
+  background-color: rgb(33, 33, 33);
+}
+
+th:first-of-type {
+  border-top-left-radius: 10px;
+}
+
+th:nth-of-type(7) {
+  border-top-right-radius: 10px;
+}
+
+tr:last-of-type td:nth-of-type(7) {
+  border-bottom-right-radius: 10px;
+}
+
+tr:last-of-type td:first-of-type {
+  border-bottom-left-radius: 10px;
+}
+
+button,
+input[type="submit"],
+input[type="button"] {
+  border: 0px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border-color: initial;
+  text-decoration-color: initial;
+  background-color: var(--accent-color);
+  color: var(--highlight-color);
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  color: var(--accent-color);
+  background-color: var(--highlight-color);
+}
+
+button:active,
+input[type="submit"]:active,
+input[type="button"]:active {
+  box-shadow: 0 1px #666;
+  transform: translateY(1px);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.edit-container {
+  background-color: rgb(33, 33, 33);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  position: absolute;
+  transform: translatey(25vh);
+}
+
+/* .form-container {
+  margin-bottom: 30px;
+  margin-top: 30px;
+} */
+
+.edit-container h3,
+.form-container h3 {
+  margin: 5px;
+}
+
+#edit-category {
+    width: 70%;
+}
+
+.edit-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input,
+select {
+  border-radius: 5px;
+  padding: 0 10px;
+  background-color: var(--bg-color);
+  color: var(--highlight-color);
+}
+
+form > * {
+  margin: 5px 5px;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.darkened {
+  filter: brightness(30%);
+}
+
+#bottom-image {
+  height: 150px;
+}
+
+#footer {
+  height: 160px;
 }
