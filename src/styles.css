@@ -58,6 +58,7 @@ body {
   width: max(400px, 50vw);
   border-collapse: collapse;
   margin: 25px 0;
+  margin-left: 36px;
   font-size: 0.9em;
   font-family: sans-serif;
 }

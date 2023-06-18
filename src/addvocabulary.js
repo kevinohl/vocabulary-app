@@ -1,9 +1,6 @@
 import "./styles.css";
 
-const krField = document.querySelector("#korean");
 const submitButton = document.querySelector("#voc-entry-submit");
-const submitEditButton = document.querySelector("#voc-edit-submit");
-const table = document.querySelector("#vocabulary-table");
 const newVocEntries = [];
 
 class VocabularyEntry {
@@ -36,6 +33,7 @@ function renderEntries() {
     newVocEntries.splice(rowToDelete, 1);
     renderEntries();
   }
+  const table = document.querySelector("#vocabulary-table");
   const currentEntries = document.querySelectorAll("tr td");
   currentEntries.forEach((line) => line.remove());
   newVocEntries.forEach((vocEntry) => {
@@ -65,6 +63,7 @@ function renderEntries() {
 }
 
 function editEntry() {
+  const submitEditButton = document.querySelector("#voc-edit-submit");
   const eCategory = document.querySelector("#edit-category");
   const eLesson = document.querySelector("#edit-lesson");
   const eKorean = document.querySelector("#edit-korean");
@@ -121,6 +120,7 @@ function editEntry() {
 // This segment deals with the initial addition of a voc entry
 function submitVocEntry(event) {
   event.preventDefault();
+  const krField = document.querySelector("#korean");
   const vocCategory = document.getElementById("category").value;
   const vocLesson = document.getElementById("lesson").value.toUpperCase();
   const vocKorean = document.getElementById("korean").value;
@@ -138,7 +138,7 @@ function submitVocEntry(event) {
     // partial form reset, leaving category and lesson populated
     document.getElementById("korean").value = "";
     document.getElementById("english").value = "";
-    document.getElementById("note").checked = "";
+    document.getElementById("note").value = "";
     newVocEntries.push(newVocEntry);
     krField.focus();
     console.log(JSON.stringify(newVocEntry));
