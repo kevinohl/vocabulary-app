@@ -1,16 +1,18 @@
 import "./styles.css";
+import "./assets/voc-db.json";
 
-const submitButton = document.querySelector("#voc-entry-submit");
+// Could technically just wrap the entire thing in a self-executing function
+// to create a closure but meh...
 const newVocEntries = [];
 
 class VocabularyEntry {
   constructor(category, lesson, korean, english, note, id) {
-    this.category = category;
-    this.lesson = lesson;
-    this.korean = korean;
-    this.english = english;
-    this.note = note;
-    this.id = id;
+    this.CATEGORY = category;
+    this.KR = korean;
+    this.ENG = english;
+    this.NOTE = note;
+    this.LESSON = lesson;
+    this.ID = id;
   }
 
   static idCounter = -1;
@@ -21,32 +23,22 @@ class VocabularyEntry {
   }
 }
 
-// This segment updates the current voc entries in our list
-// TODO: get rid of circular dependence: renderEntries needs editEntry and vice-versa!
+// This segment updates the DOM to show the current voc entries in our list
 function renderEntries() {
-  function deleteEntry() {
-    const currentEntryId =
-      this.parentNode.parentNode.querySelector("td:nth-of-type(8)").textContent;
-    const rowToDelete = newVocEntries.findIndex(
-      (vocEntry) => parseInt(vocEntry.id, 10) === parseInt(currentEntryId, 10)
-    );
-    newVocEntries.splice(rowToDelete, 1);
-    renderEntries();
-  }
   const table = document.querySelector("#vocabulary-table");
   const currentEntries = document.querySelectorAll("tr td");
   currentEntries.forEach((line) => line.remove());
   newVocEntries.forEach((vocEntry) => {
     const newRow = document.createElement("tr");
     newRow.innerHTML = `
-        <td>${vocEntry.korean}</td>
-        <td>${vocEntry.english}</td>
-        <td>${vocEntry.note}</td>
-        <td>${vocEntry.category}</td>
-        <td>${vocEntry.lesson}</td>
+        <td>${vocEntry.KR}</td>
+        <td>${vocEntry.ENG}</td>
+        <td>${vocEntry.NOTE}</td>
+        <td>${vocEntry.CATEGORY}</td>
+        <td>${vocEntry.LESSON}</td>
         <td><button class="edit-button">Edit</button></td>
         <td><button class="del-button">Delete</button></td>
-        <td style="visibility:hidden">${vocEntry.id}</td>
+        <td style="visibility:hidden">${vocEntry.ID}</td>
       `;
     table.appendChild(newRow);
 
@@ -62,6 +54,16 @@ function renderEntries() {
   });
 }
 
+function deleteEntry() {
+  const currentEntryId =
+    this.parentNode.parentNode.querySelector("td:nth-of-type(8)").textContent;
+  const rowToDelete = newVocEntries.findIndex(
+    (vocEntry) => parseInt(vocEntry.id, 10) === parseInt(currentEntryId, 10)
+  );
+  newVocEntries.splice(rowToDelete, 1);
+  renderEntries();
+}
+
 function editEntry() {
   const submitEditButton = document.querySelector("#voc-edit-submit");
   const eCategory = document.querySelector("#edit-category");
@@ -69,7 +71,7 @@ function editEntry() {
   const eKorean = document.querySelector("#edit-korean");
   const eEnglish = document.querySelector("#edit-english");
   const eNote = document.querySelector("#edit-note");
-  // Toggle unhides/hides the edit form and darkens/undarkens the background
+  // Toggle visibility of edit form and darkens/undarkens the background
   function toggleEditForm() {
     const form = document.querySelector(".edit-container");
     const background1 = document.querySelector(".form-container");
@@ -146,8 +148,38 @@ function submitVocEntry(event) {
   } else alert("Please fill out all required fields.");
 }
 
+let localJson;
+// so apparently, even with the async here the function takes a moment to assign
+// data to localJson. Thus, we need to call the function early on
+async function loadLocalJson() {
+  const response = await fetch('http://localhost:8080/assets/voc-db.json');
+  const data = await response.json();
+  localJson = data;
+}
+
+function pushClassToJson(entry) {
+  const convertedEntry = {KR: entry.KR, ENG: entry.ENG, NOTE: entry.NOTE, LESSON: entry.LESSON};
+	localJson[entry.CATEGORY].push(convertedEntry);
+}
+
+function commitToDatabase() {
+/*   const data = ("./assets/voc-db.json");
+  const jsonObject = JSON.parse(data);
+  console.log(jsonObject); */
+  const cleanVocList = [...newVocEntries];
+  console.log(localJson);
+  cleanVocList.forEach((entry) => pushClassToJson(entry));
+  console.log(JSON.stringify(localJson));
+  // reload the local database
+  loadLocalJson();
+}
+
+const submitButton = document.querySelector("#voc-entry-submit");
+const commitButton = document.querySelector("#confirm-entries");
 submitButton.addEventListener("click", submitVocEntry);
+commitButton.addEventListener("click", commitToDatabase);
 
 renderEntries();
+loadLocalJson();
 
 // REMEMBER: Before using JSON.stringify, we need to delete the id property from the object!

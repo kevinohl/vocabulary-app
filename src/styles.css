@@ -119,6 +119,18 @@ input[type="button"]:active {
   transform: translateY(1px);
 }
 
+.display-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#confirm-entries {
+    width: 195px;
+    font-weight: bold;
+    padding: 10px 15px 10px 15px;
+}
+
 .hidden {
   visibility: hidden;
 }

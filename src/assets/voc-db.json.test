@@ -1,0 +1,28 @@
+{
+	"Nouns": [{
+			"KR": "\ub3c4\uc2dc",
+			"ENG": "city",
+			"NOTE": "",
+			"LESSON": "L1"
+		},
+		{
+			"KR": "\uc774\ub984",
+			"ENG": "name",
+			"NOTE": "",
+			"LESSON": "L1"
+		}
+	],
+	"Verbs": [{
+			"KR": "\uc788\ub2e4",
+			"ENG": "to be at a location",
+			"NOTE": "",
+			"LESSON": "L2"
+		},
+		{
+			"KR": "\uba39\ub2e4",
+			"ENG": "to eat",
+			"NOTE": "",
+			"LESSON": "L3"
+		}
+	]
+}
