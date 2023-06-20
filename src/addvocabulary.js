@@ -1,6 +1,9 @@
 import "./styles.css";
 import "./assets/voc-db.json";
 
+// Jump to line ~170 containing commitToDatabase() and implement the rest using node.
+
+
 // Could technically just wrap the entire thing in a self-executing function
 // to create a closure but meh...
 const newVocEntries = [];
@@ -163,13 +166,14 @@ function pushClassToJson(entry) {
 }
 
 function commitToDatabase() {
-/*   const data = ("./assets/voc-db.json");
-  const jsonObject = JSON.parse(data);
-  console.log(jsonObject); */
-  const cleanVocList = [...newVocEntries];
+  newVocEntries.forEach((entry) => pushClassToJson(entry));
   console.log(localJson);
-  cleanVocList.forEach((entry) => pushClassToJson(entry));
   console.log(JSON.stringify(localJson));
+  // convert the localJson object to a string and save it to a file:
+  const jsonString = JSON.stringify(localJson);
+  // NEED TO RETURN TO THIS LATER. NATIVELY, JS DOES NOT SUPPORT WRITING TO THE FILE SYSTEM.
+  // THIS EXPLICITLY REQUIRES NODE AND ITS FS MODULE!!!
+
   // reload the local database
   loadLocalJson();
 }
