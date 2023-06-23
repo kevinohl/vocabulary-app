@@ -61,7 +61,7 @@ function deleteEntry() {
   const currentEntryId =
     this.parentNode.parentNode.querySelector("td:nth-of-type(8)").textContent;
   const rowToDelete = newVocEntries.findIndex(
-    (vocEntry) => parseInt(vocEntry.id, 10) === parseInt(currentEntryId, 10)
+    (vocEntry) => parseInt(vocEntry.ID, 10) === parseInt(currentEntryId, 10)
   );
   newVocEntries.splice(rowToDelete, 1);
   renderEntries();
@@ -89,19 +89,19 @@ function editEntry() {
   }
   // copy over existing values from the entry we are trying to edit
   function populateEditForm(entry) {
-    eCategory.value = entry.category;
-    eLesson.value = entry.lesson;
-    eKorean.value = entry.korean;
-    eEnglish.value = entry.english;
-    eNote.value = entry.note;
+    eCategory.value = entry.CATEGORY;
+    eLesson.value = entry.LESSON;
+    eKorean.value = entry.KR;
+    eEnglish.value = entry.ENG;
+    eNote.value = entry.NOTE;
   }
   // update the entry itself before rendering the list again
   function updateVocEntry(oldEntry) {
-    newVocEntries[parseInt(oldEntry, 10)].category = eCategory.value;
-    newVocEntries[parseInt(oldEntry, 10)].lesson = eLesson.value;
-    newVocEntries[parseInt(oldEntry, 10)].korean = eKorean.value;
-    newVocEntries[parseInt(oldEntry, 10)].english = eEnglish.value;
-    newVocEntries[parseInt(oldEntry, 10)].note = eNote.value;
+    newVocEntries[parseInt(oldEntry, 10)].CATEGORY = eCategory.value;
+    newVocEntries[parseInt(oldEntry, 10)].LESSON = eLesson.value;
+    newVocEntries[parseInt(oldEntry, 10)].KR = eKorean.value;
+    newVocEntries[parseInt(oldEntry, 10)].ENG = eEnglish.value;
+    newVocEntries[parseInt(oldEntry, 10)].NOTE = eNote.value;
     renderEntries();
     submitEditButton.removeEventListener("click", updateVocEntry);
     toggleEditForm();
@@ -110,10 +110,10 @@ function editEntry() {
   const currentEntryId =
     this.parentNode.parentNode.querySelector("td:nth-of-type(8)").textContent;
   const entrytoEdit = newVocEntries.find(
-    (vocEntry) => parseInt(vocEntry.id, 10) === parseInt(currentEntryId, 10)
+    (vocEntry) => parseInt(vocEntry.ID, 10) === parseInt(currentEntryId, 10)
   );
   const indexToEdit = newVocEntries.findIndex(
-    (vocEntry) => parseInt(vocEntry.id, 10) === parseInt(currentEntryId, 10)
+    (vocEntry) => parseInt(vocEntry.ID, 10) === parseInt(currentEntryId, 10)
   );
   toggleEditForm();
   populateEditForm(entrytoEdit);
@@ -155,7 +155,10 @@ let localJson;
 // so apparently, even with the async here the function takes a moment to assign
 // data to localJson. Thus, we need to call the function early on
 async function loadLocalJson() {
+  // serving the file through the webpack dev-server:
   const response = await fetch('http://localhost:8080/assets/voc-db.json');
+  // server the file through the python server on my PC:
+  // const response = await fetch('http://192.168.178.34:8000/assets/voc-db.json');
   const data = await response.json();
   localJson = data;
 }
@@ -165,15 +168,28 @@ function pushClassToJson(entry) {
 	localJson[entry.CATEGORY].push(convertedEntry);
 }
 
+function generateDateString() {
+  const date = new Date();
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth()+1).padStart(2,"0");
+  const year = date.getFullYear();
+  const dateString = `voc-db-${year}-${month}-${day}`;
+  return dateString;
+}
+
+
 function commitToDatabase() {
   newVocEntries.forEach((entry) => pushClassToJson(entry));
   console.log(localJson);
-  console.log(JSON.stringify(localJson));
   // convert the localJson object to a string and save it to a file:
   const jsonString = JSON.stringify(localJson);
   // NEED TO RETURN TO THIS LATER. NATIVELY, JS DOES NOT SUPPORT WRITING TO THE FILE SYSTEM.
   // THIS EXPLICITLY REQUIRES NODE AND ITS FS MODULE!!!
-
+  // Local stoage BS can be done like this but that won't really help me do what I want to do long-term.
+/*   localStorage.setItem("voc-db-session", localJson);
+  console.log(localStorage.getItem("voc-db-session")); */
+  console.log(generateDateString());
+  console.log(jsonString);
   // reload the local database
   loadLocalJson();
 }
