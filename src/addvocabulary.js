@@ -3,7 +3,6 @@ import "./assets/voc-db.json";
 
 // Jump to line ~170 containing commitToDatabase() and implement the rest using node.
 
-
 // Could technically just wrap the entire thing in a self-executing function
 // to create a closure but meh...
 const newVocEntries = [];
@@ -156,7 +155,7 @@ let localJson;
 // data to localJson. Thus, we need to call the function early on
 async function loadLocalJson() {
   // serving the file through the webpack dev-server:
-  const response = await fetch('http://localhost:8080/assets/voc-db.json');
+  const response = await fetch("http://localhost:8080/assets/voc-db.json");
   // server the file through the python server on my PC:
   // const response = await fetch('http://192.168.178.34:8000/assets/voc-db.json');
   const data = await response.json();
@@ -164,19 +163,23 @@ async function loadLocalJson() {
 }
 
 function pushClassToJson(entry) {
-  const convertedEntry = {KR: entry.KR, ENG: entry.ENG, NOTE: entry.NOTE, LESSON: entry.LESSON};
-	localJson[entry.CATEGORY].push(convertedEntry);
+  const convertedEntry = {
+    KR: entry.KR,
+    ENG: entry.ENG,
+    NOTE: entry.NOTE,
+    LESSON: entry.LESSON,
+  };
+  localJson[entry.CATEGORY].push(convertedEntry);
 }
 
 function generateDateString() {
   const date = new Date();
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth()+1).padStart(2,"0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
   const dateString = `voc-db-${year}-${month}-${day}`;
   return dateString;
 }
-
 
 function commitToDatabase() {
   newVocEntries.forEach((entry) => pushClassToJson(entry));
@@ -186,7 +189,7 @@ function commitToDatabase() {
   // NEED TO RETURN TO THIS LATER. NATIVELY, JS DOES NOT SUPPORT WRITING TO THE FILE SYSTEM.
   // THIS EXPLICITLY REQUIRES NODE AND ITS FS MODULE!!!
   // Local stoage BS can be done like this but that won't really help me do what I want to do long-term.
-/*   localStorage.setItem("voc-db-session", localJson);
+  /*   localStorage.setItem("voc-db-session", localJson);
   console.log(localStorage.getItem("voc-db-session")); */
   console.log(generateDateString());
   console.log(jsonString);
@@ -198,6 +201,13 @@ const submitButton = document.querySelector("#voc-entry-submit");
 const commitButton = document.querySelector("#confirm-entries");
 submitButton.addEventListener("click", submitVocEntry);
 commitButton.addEventListener("click", commitToDatabase);
+
+/* const testentry = new VocabularyEntry("Verb", "L69", "KKD", "OWO", "", 0);
+let i = 0;
+while (i < 20) {
+  newVocEntries.push(testentry);
+  i++;
+} */
 
 renderEntries();
 loadLocalJson();

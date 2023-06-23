@@ -29,7 +29,8 @@ body {
   align-items: center;
   background-color: var(--bg-color);
   color: var(--highlight-color);
-  height: 100vh;
+  min-height: 100vh;
+  max-height: auto;
   width: 100vw;
   justify-content: space-between;
 }
@@ -129,6 +130,7 @@ input[type="button"]:active {
     width: 195px;
     font-weight: bold;
     padding: 10px 15px 10px 15px;
+    margin-bottom: 25px;
 }
 
 .hidden {
