@@ -194,7 +194,7 @@ function commitToDatabase() {
   console.log(generateDateString());
   console.log(jsonString);
   // reload the local database
-  loadLocalJson();
+  // loadLocalJson();
 }
 
 const submitButton = document.querySelector("#voc-entry-submit");
